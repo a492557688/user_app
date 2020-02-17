@@ -1,10 +1,10 @@
-from FUNC import linesStr_to_lineDic
+from tools.zhuanhuan import *
 from funs_domain import *
 from func_http import *
 from funs_signal import *
 import sys ,os
 sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
-f=open("../file/cad50fe2-9e34-023f-2d29-99d1988026ac.txt")
+f=open("../file/af4bebd0-54ca-ffca-ca7c-25c7814574cd.txt")
 data=linesStr_to_lineDic(f.read())
 signal_dic={}
 qr_0_host={}
@@ -40,6 +40,8 @@ for k,v in qr_1_ip.items():
     for ip  in tcpData:
         domain_dic[ip]["cdn"]=v
 domain_dic={ip:info for ip,info in domain_dic.items() if info.get("cdn") }
-
-print(domain_dic)
-
+db_list=domian_dic_to_db_dic(domain_dic,"af4bebd0-54ca-ffca-ca7c-25c7814574cd")
+from DB.tables import  Domain
+# print(db_list)
+# print(Domain().query("domain,ip,dnsreplydelay,tcpbuilddelay,dns_suc_rate,tcp_suc_rate"))
+Domain().insert_data(db_list)
